@@ -4,10 +4,20 @@ node {
        git 'https://github.com/meekrosoft/embeddedproject.git'
    }
    stage ('Build'){
-       sh 'make all'
+      agent {
+          docker { image 'maven:3-alpine' }
+       }
+      steps{
+          sh 'make all'
+      }
    }
    stage ('Test'){
-       sh 'make test'
+       agent {
+          docker { image 'maven:3-alpine' }
+       }
+      steps{
+          sh 'make test'
+      }
    }
    stage ('Results'){
        junit 'out/bin/results_junit.xml'
