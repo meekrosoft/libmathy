@@ -1,9 +1,6 @@
 pipeline {
    agent none
    stages {
-      stage ('Preparation') {
-          git 'https://github.com/meekrosoft/embeddedproject.git'
-      }
       stage ('Build'){
          agent {
              docker { image 'maven:3-alpine' }
