@@ -1,18 +1,15 @@
 pipeline {
-   agent any
+   agent {
+       docker { image 'praqma/native-make' }
+   }
    stages {
       stage ('Build'){
-         agent {
-             docker { image 'praqma/native-make' }
-          }
+         
          steps{
              sh 'make all'
          }
       }
       stage ('Test'){
-          agent {
-             docker { image 'praqma/native-make' }
-          }
          steps{
              sh 'make test'
          }
