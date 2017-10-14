@@ -1,4 +1,5 @@
 node {
+   agent none
    echo 'Hello World'
    stage ('Preparation') {
        git 'https://github.com/meekrosoft/embeddedproject.git'
