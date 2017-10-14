@@ -18,8 +18,10 @@ pipeline {
          }
       }
       stage ('Results'){
-          junit 'out/bin/results_junit.xml'
-          archiveArtifacts 'out/bin/main'
+         steps{
+             junit 'out/bin/results_junit.xml'
+             archiveArtifacts 'out/bin/main'
+         }
       }
    }
 }
