@@ -1,4 +1,4 @@
-node {
+pipeline {
    agent none
    echo 'Hello World'
    stage ('Preparation') {
