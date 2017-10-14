@@ -1,26 +1,28 @@
 pipeline {
    agent none
-   stage ('Preparation') {
-       git 'https://github.com/meekrosoft/embeddedproject.git'
-   }
-   stage ('Build'){
-      agent {
-          docker { image 'maven:3-alpine' }
-       }
-      steps{
-          sh 'make all'
+   stages {
+      stage ('Preparation') {
+          git 'https://github.com/meekrosoft/embeddedproject.git'
       }
-   }
-   stage ('Test'){
-       agent {
-          docker { image 'maven:3-alpine' }
-       }
-      steps{
-          sh 'make test'
+      stage ('Build'){
+         agent {
+             docker { image 'maven:3-alpine' }
+          }
+         steps{
+             sh 'make all'
+         }
       }
-   }
-   stage ('Results'){
-       junit 'out/bin/results_junit.xml'
-       archiveArtifacts 'out/bin/main'
+      stage ('Test'){
+          agent {
+             docker { image 'maven:3-alpine' }
+          }
+         steps{
+             sh 'make test'
+         }
+      }
+      stage ('Results'){
+          junit 'out/bin/results_junit.xml'
+          archiveArtifacts 'out/bin/main'
+      }
    }
 }
