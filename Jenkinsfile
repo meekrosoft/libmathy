@@ -11,7 +11,7 @@ pipeline {
       stage ('Results'){
          steps{
              junit 'out/bin/results_junit.xml'
-             archiveArtifacts 'out/bin/main'
+             archiveArtifacts 'build/distributions/*.zip'
          }
       }
    }
