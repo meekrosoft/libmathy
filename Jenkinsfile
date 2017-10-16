@@ -1,17 +1,11 @@
 pipeline {
    agent {
-       docker { image 'praqma/native-make' }
+       docker { image 'praqma/native-gradle' }
    }
    stages {
       stage ('Build'){
-         
          steps{
-             sh 'make all'
-         }
-      }
-      stage ('Test'){
-         steps{
-             sh 'make test'
+             sh './gradlew publishToMavenLocal'
          }
       }
       stage ('Results'){
