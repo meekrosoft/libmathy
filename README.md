@@ -123,10 +123,35 @@ Extra Credit:
 
 
 ## 11. Artifactory
+
+We have set up a artifactory server on port 8081.  Mike will give you a username/password.
+
 ### 11.1 Publish the artifact
+
+To publish the artifact we need to do two steps:
+
+ 1. Get some publishing secrets in our docker build environment a file `~/.gradle/gradle.properties`
+
+     docker {
+         image 'praqma/native-gradle'
+         args '-v $HOME/.m2:/home/jenkins/.m2'
+         args '-v $HOME/.gradle:/home/jenkins/.gradle'
+     }
+     
+ 2. Change our gradle task from `publishToMavenLocal` to `publish`
+ 3. Push these changes and do a build...you should now be able to see your artifact in artifactory.
+
+Try to publish the artifact a second time.  It should fail with a message like this:
+
+````
+Execution failed for task ':publishDefaultPubPublicationToMavenRepository'.
+> Failed to publish publication 'defaultPub' to repository 'maven'
+   > Could not write to resource 'http://embedded.praqma.com:8081/artifactory/libs-release-local/net/praqma/embedded-project/1.0.5/embedded-project-1.0.5.zip'.
+      > Could not PUT 'http://embedded.praqma.com:8081/artifactory/libs-release-local/net/praqma/embedded-project/1.0.5/embedded-project-1.0.5.zip'. Received status code 403 from server: Forbidden
+````
 ### 11.2 Auto-incrementing version numbers
 
-
+ 1. Add the Version Incrementor
 ------------------
 
 
